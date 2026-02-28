@@ -1,0 +1,44 @@
+SELECT
+  {[Measures].[Iznos]} ON COLUMNS,
+  NON EMPTY
+  CrossJoin(
+    [Kategorija].[Kategorija].Members,
+    [Vreme].[Godina].Members
+  ) ON ROWS
+FROM [Prodaja]
+
+
+SELECT
+  {[Measures].[Kolicina]} ON COLUMNS,
+  NON EMPTY [Mesto prodavca].[Mesto].Members ON ROWS
+FROM [Prodaja]
+
+
+
+SELECT
+  {[Measures].[Broj recenzija]} ON COLUMNS,
+  NON EMPTY
+  Descendants([Vreme].[Godina].Members, [Vreme].[Mesec]) ON ROWS
+FROM [Recenzije]
+
+
+
+
+SELECT
+  {[Measures].[Prosecna ocena]} ON COLUMNS,
+  NON EMPTY
+  CrossJoin(
+    [Kategorija].[Kategorija].Members,
+    [Mesto prodavca].[Mesto].Members
+  ) ON ROWS
+FROM [Recenzije]
+
+
+SELECT
+  {[Measures].[Max ocena], [Measures].[Min ocena]} ON COLUMNS,
+  NON EMPTY [Prodavac].[Korisnik].Members ON ROWS
+FROM [Recenzije]
+
+
+
+
